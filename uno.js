@@ -55,6 +55,7 @@ showData = function(){
 	    	}
 	    },
 	    out: function(event, ui) {
+		  	$(".directorio").removeClass('directorio');
 	    	g_idSrc = '';
 	    	g_idTar = '';
 	    },
@@ -199,10 +200,7 @@ dropExec = function(idSrc, idTar, idIdTar) {
 }
 
 showAll = function(excluye){
-	var a = $(".directorio");
-	a.each(function(a,b){
-		$(b).removeClass('directorio');
-	})	
+  	$(".directorio").removeClass('directorio');
 	$.each(g_data, function(idx,rec){
 		if(idx != excluye) {
 			g_data[idx].showElem();
@@ -372,8 +370,5 @@ exporta = function(){
 	$.post('data_update.php', {data : JSON.stringify(finalData)}, function(data, status){
 	});
 }
-
-
-
 
 inicio();
