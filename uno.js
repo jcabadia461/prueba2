@@ -67,7 +67,8 @@ showData = function(){
 	    	idSrc = $(event.srcElement).attr('idElem');
 
 			elemSrc = $("#o_" + idSrc);
-			elemTar = $(this);
+			//elemTar = $(this);
+			elemTar = $("#o_" + idTar);
 
 			//TODO, esta parte se está repitiendo.
 			if(elemTar.position() != null && elemSrc.position() != null && elemTar.position() != null && elemSrc.position() != null){
@@ -76,8 +77,7 @@ showData = function(){
 					alturaTar = elemTar.position().top + elemTar.height();
 					anchoSrc = elemSrc.position().left + elemSrc.width();
 					anchoTar = elemTar.position().left + elemTar.width();
-					if(alturaTar > alturaSrc && anchoTar > anchoSrc){
-
+					if(alturaTar >= alturaSrc && anchoTar >= anchoSrc){
 						if(g_data[idTar].isDir()) {
 							g_data[idSrc].chgPadre(idTar);
 							console.log('** ENCARPETAR **');
@@ -85,7 +85,6 @@ showData = function(){
 					} 
 				}
 			}
-	//	    	g_data[idTar].dropped(idSrc);
 	    	showAll();
 	    }
 	});
