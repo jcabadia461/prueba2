@@ -175,17 +175,18 @@ dropExec = function(idSrc, idTar, idIdTar) {
 		elemSrc = $("#o_" + idSrc);
 		elemTar = $("#" + idIdTar);
 		if(elemTar.position() != null && elemSrc.position() != null && elemTar.position() != null && elemSrc.position() != null){
-			if(elemTar.position().top < elemSrc.position().top && elemTar.position().left < elemSrc.position().left){
-				alturaSrc = elemSrc.position().top + elemSrc.height();
-				alturaTar = elemTar.position().top + elemTar.height();
-				anchoSrc = elemSrc.position().left + elemSrc.width();
-				anchoTar = elemTar.position().left + elemTar.width();
-				if(alturaTar > alturaSrc && anchoTar > anchoSrc){
-					g_data[idTar].setClassDir();
-					return;
+			if(idTar != 'ax_trash' && idSrc != 'ax_trash' && idTar != 'ax_edit' && idSrc != 'ax_edit'){
+				if(elemTar.position().top < elemSrc.position().top && elemTar.position().left < elemSrc.position().left){
+					alturaSrc = elemSrc.position().top + elemSrc.height();
+					alturaTar = elemTar.position().top + elemTar.height();
+					anchoSrc = elemSrc.position().left + elemSrc.width();
+					anchoTar = elemTar.position().left + elemTar.width();
+					if(alturaTar > alturaSrc && anchoTar > anchoSrc){
+						g_data[idTar].setClassDir();
+						return;
+					}
 				}
 			}
-
 			idObjSrc = idSrc;
 			idObjTarget = idTar;
 			targetID = idIdTar;
@@ -258,7 +259,7 @@ inicio = function(){
  	}
  	this.getHtml = function(){
 		// creamos el botón
-		html = '<div id="o_'+this.getId()+'" idElem="'+this.getId()+'" class="'+this.p_data.clase+'" style=""></div>';
+		html = '<div id="o_'+this.getId()+'" idElem="'+this.getId()+'" class="'+this.p_data.clase+'" style=""><p>hola</p></div>';
 		$("#"+this.p_contenedor).append(html);
 		this.p_obj = $("#o_"+this.getId());
 
@@ -282,6 +283,7 @@ inicio = function(){
 	}
 
 	this.chgPadre = function(idPadre){
+		console.log("El padre es : " + idPadre);
 		this.p_obj.hide();
 		this.p_objTmp.hide();
 	}
