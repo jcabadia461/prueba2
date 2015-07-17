@@ -178,14 +178,16 @@ dropExec = function(idSrc, idTar, idIdTar) {
 		elemTar = $("#" + idIdTar);
 		if(elemTar.position() != null && elemSrc.position() != null && elemTar.position() != null && elemSrc.position() != null){
 			if(idTar != 'ax_trash' && idSrc != 'ax_trash' && idTar != 'ax_edit' && idSrc != 'ax_edit'){
-				if(elemTar.position().top < elemSrc.position().top && elemTar.position().left < elemSrc.position().left){
-					alturaSrc = elemSrc.position().top + elemSrc.height();
-					alturaTar = elemTar.position().top + elemTar.height();
-					anchoSrc = elemSrc.position().left + elemSrc.width();
-					anchoTar = elemTar.position().left + elemTar.width();
-					if(alturaTar > alturaSrc && anchoTar > anchoSrc){
-						g_data[idTar].setClassDir();
-						return;
+				if(g_data[idTar].getTipo() == '4' && g_data[idSrc].getTipo() == '1'){
+					if(elemTar.position().top < elemSrc.position().top && elemTar.position().left < elemSrc.position().left){
+						alturaSrc = elemSrc.position().top + elemSrc.height();
+						alturaTar = elemTar.position().top + elemTar.height();
+						anchoSrc = elemSrc.position().left + elemSrc.width();
+						anchoTar = elemTar.position().left + elemTar.width();
+						if(alturaTar > alturaSrc && anchoTar > anchoSrc){
+							g_data[idTar].setClassDir();
+							return;
+						}
 					}
 				}
 			}
@@ -329,6 +331,7 @@ inicio = function(){
 		if(tipo == '4'){
 			this.setImage('folder-icon.png');
 			this.setColor('rgba(255,255,255,.1)');
+			this.p_obj.html("<div class='texto'><p>"+this.getNombre()+"</p></div>");
 		}
 	}
 
