@@ -185,6 +185,7 @@ dropExec = function(idSrc, idTar, idIdTar) {
 					return;
 				}
 			}
+
 			idObjSrc = idSrc;
 			idObjTarget = idTar;
 			targetID = idIdTar;
@@ -281,7 +282,6 @@ inicio = function(){
 	}
 
 	this.chgPadre = function(idPadre){
-		console.log(idPadre);
 		this.p_obj.hide();
 		this.p_objTmp.hide();
 	}
