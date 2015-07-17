@@ -99,6 +99,7 @@ showData = function(){
 			var idElem, idIdElem;
 
 			function createNewButton() {
+				var f_tipo = $("#f_tipo").val();
 				var f_nombre = $("#f_nombre").val();
 				var f_color = $("#f_color").val();
 				var f_image = $("#f_imagen").val();
@@ -109,7 +110,7 @@ showData = function(){
 				g_data[idIdElem].setColor(f_color);
 				g_data[idIdElem].setImage(f_image);
 				g_data[idIdElem].setUrl(f_url);
-				g_data[idIdElem].setTipo('1');
+				g_data[idIdElem].setTipo(f_tipo);
 				exporta();
 			}
 
@@ -138,6 +139,7 @@ showData = function(){
 						default :
 							idElem = $(this).attr('id'); 
 							idIdElem = $("#"+idElem).attr("idElem");
+							$("#f_tipo").val(g_data[idIdElem].getTipo());
 							$("#f_nombre").val(g_data[idIdElem].getNombre());
 							$("#f_color").val(g_data[idIdElem].getColor());
 							$("#f_imagen").val(g_data[idIdElem].getImage());
@@ -259,7 +261,7 @@ inicio = function(){
  	}
  	this.getHtml = function(){
 		// creamos el botón
-		html = '<div id="o_'+this.getId()+'" idElem="'+this.getId()+'" class="'+this.p_data.clase+'" style=""><p>hola</p></div>';
+		html = '<div id="o_'+this.getId()+'" idElem="'+this.getId()+'" class="'+this.p_data.clase+'" style=""></div>';
 		$("#"+this.p_contenedor).append(html);
 		this.p_obj = $("#o_"+this.getId());
 
@@ -268,12 +270,9 @@ inicio = function(){
 		}
 
 		this.setColor(this.p_data.color);
-
+		this.setTipo(this.p_data.tipo);
 		this.p_obj.draggable();
-
-		if(this.p_data.tipo == '2'){
-			this.p_obj.addClass("insertable");
-		}
+		/* if(this.p_data.tipo == '2'){this.p_obj.addClass("insertable");} */
 
 		//creamos el temporal
 		html = '<div id="t_'+this.getId() +'" class="nivel2 temporal"></div>';
@@ -322,6 +321,17 @@ inicio = function(){
 		this.p_data.clase = clase;
 		this.p_obj.addClass(clase);
 	}
+	this.getTipo = function(){
+		return this.p_data.tipo;
+	}
+	this.setTipo = function(tipo){
+		this.p_data.tipo = tipo;
+		if(tipo == '4'){
+			this.setImage('folder-icon.png');
+			this.setColor('rgba(255,255,255,.1)');
+		}
+	}
+
 	this.getNombre = function(){
 		return this.p_data.nombre;
 	}
@@ -347,9 +357,6 @@ inicio = function(){
 	}
 	this.setUrl = function(url){
 		this.p_data.url = url;
-	}
-	this.setTipo = function(tipo){
-		this.p_data.tipo = tipo;
 	}
 }
 

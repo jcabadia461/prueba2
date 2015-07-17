@@ -35,12 +35,19 @@ body {
 			position: absolute;
 			border-radius: 14px;
 			opacity: 1;
-			overflow: hidden;
 			background-size: cover;
 			background-repeat:no-repeat;
 			background-position: center; 
 		}
-
+		.texto {
+			width: 100%;
+			text-align: center;
+			color: white;
+			margin-top: 98%;
+			z-index: 1000;
+			font-size: 0.8em;
+			opacity: .6;
+		}
 		.temporal {
 			position: relative;
 			z-index: -1;
@@ -274,6 +281,9 @@ body {
 <div id="dialog-form" title="Bot&oacute;n" style="font-size:.8em; display: none">
 		<form >
 			<fieldset>
+				<label for="f_tipo">tipo</label>
+				<input type="text" name="f_tipo" id="f_tipo" value="1" maxlength="1" size="1" class="text ui-widget-content ui-corner-all">
+				<br/>
 				<label for="f_nombre">nombre</label>
 				<input type="text" name="f_nombre" id="f_nombre" value="" maxlength="24" size="24" class="text ui-widget-content ui-corner-all">
 				<br/>
