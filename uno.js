@@ -9,19 +9,46 @@ $( window ).resize(function() {
 
 reordenar = function(){
 	if(g_reordenar) {
+		$(".temporal").css("margin", "4px");
 		g_reordenar = false;
 		g_orden = new Object();
 		var a = $(".nivel2");
+		var lastRowElem = 0;
 		a.each(function(a,b){
 			xtop = $(b).position().top;
+			if(xtop == 0)
+				lastRowElem = $(b);
 			xleft = $(b).position().left; 
 			g_orden[xtop + '_' + xleft] = a;
 		})
+		setBestMargin(lastRowElem);
 		showAll();
 	}
 }
 
+setBestMargin = function(lastRowElem){
+	var id;
+	id = $(lastRowElem).attr('id');
+
+	widthWin = $(window).width();
+
+	flag = true;
+	bestMargin = 4;
+	while(flag){
+		if($(lastRowElem).position().top == 0) {
+			bestMargin++;
+			$(".temporal").css("margin", bestMargin.toString()+"px");
+		} else {
+			bestMargin--;
+			$(".temporal").css("margin", bestMargin.toString()+"px");
+			flag = false;
+		}
+	}
+	$(".simple").css("margin", bestMargin.toString()+"px");
+}
+
 showData = function(){
+	g_reordenar = true;
 	setInterval(function () {reordenar()}, 1000);
 	$.each(g_data, function(idx,rec){
 		g_data[idx].getHtml();
