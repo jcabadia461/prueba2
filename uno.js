@@ -2,6 +2,7 @@ var g_data = new Object();
 var g_orden = new Object();
 var g_idSrc, g_idTar;
 var g_reordenar = false;
+var g_movil;
 
 $( window ).resize(function() {
 	g_reordenar = true;
@@ -49,7 +50,7 @@ setBestMargin = function(lastRowElem){
 
 showData = function(){
 	g_reordenar = true;
-	setInterval(function () {reordenar()}, 1000);
+	setInterval(function () {reordenar()}, 500);
 	$.each(g_data, function(idx,rec){
 		g_data[idx].getHtml();
 		g_data[idx].showElem();
@@ -243,6 +244,10 @@ showAll = function(excluye){
 }
 
 inicio = function(){
+   	g_movil = false;
+	if($.browser.device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))){
+    	g_movil = true;
+	}	
 	$.getJSON('/surface/data.php', function (response) {
 		i = 0;
 		$.each(response, function(idx, rec){
@@ -339,10 +344,15 @@ inicio = function(){
 	}
 	this.showElem = function(){
 		if(this.getTop() != this.getTopTemporal() || this.getLeft() != this.getLefTemporal()){
-			this.p_obj.animate({
-				top: this.getTopTemporal(),
-				left: this.getLefTemporal()
-			});
+			if(g_movil){
+				this.p_obj.css('top',this.getTopTemporal());
+				this.p_obj.css('left',this.getLefTemporal());
+			} else {
+				this.p_obj.animate({
+					top: this.getTopTemporal(),
+					left: this.getLefTemporal()
+				});
+			}
 		}
 	}
 
@@ -409,4 +419,6 @@ exporta = function(){
 	});
 }
 
-inicio();
+$( document ).ready(function() {
+	inicio();
+});
