@@ -12,17 +12,21 @@ reordenar = function(){
 	if(g_reordenar) {
 		$(".temporal").css("margin", "4px");
 		g_reordenar = false;
-		g_orden = new Object();
 		var a = $(".nivel2");
 		var lastRowElem = 0;
-		a.each(function(a,b){
+		a.each(function(atmp,b){
 			xtop = $(b).position().top;
 			if(xtop == 0)
 				lastRowElem = $(b);
 			xleft = $(b).position().left; 
-			g_orden[xtop + '_' + xleft] = a;
 		})
 		setBestMargin(lastRowElem);
+		g_orden = new Object();
+		a.each(function(atmp,b){
+			xtop = $(b).position().top;
+			xleft = $(b).position().left; 
+			g_orden[xtop + '_' + xleft] = atmp;
+		})
 		showAll();
 	}
 }
@@ -30,9 +34,6 @@ reordenar = function(){
 setBestMargin = function(lastRowElem){
 	var id;
 	id = $(lastRowElem).attr('id');
-
-	widthWin = $(window).width();
-
 	flag = true;
 	bestMargin = 4;
 	while(flag){
@@ -404,19 +405,19 @@ exporta = function(){
 	var finalData = new Object();
 	$.each(g_data, function(idx, rec){
 		data = g_data[idx].p_data;
-		finalData[g_data[idx].getOrdenTemporal()] = new Object();
-		finalData[g_data[idx].getOrdenTemporal()]['id'] = data.id;
-		finalData[g_data[idx].getOrdenTemporal()]['nombre'] = data.nombre;
-		finalData[g_data[idx].getOrdenTemporal()]['color'] = data.color;
-		finalData[g_data[idx].getOrdenTemporal()]['tipo'] = data.tipo;
-		finalData[g_data[idx].getOrdenTemporal()]['padre'] = data.padre;
-		finalData[g_data[idx].getOrdenTemporal()]['clase'] = data.clase;
-		finalData[g_data[idx].getOrdenTemporal()]['image'] = data.image;
-		finalData[g_data[idx].getOrdenTemporal()]['url'] = data.url;
+		if (typeof data.id != 'undefined') {
+			finalData[g_data[idx].getOrdenTemporal()] = new Object();
+			finalData[g_data[idx].getOrdenTemporal()]['id'] = data.id;
+			finalData[g_data[idx].getOrdenTemporal()]['nombre'] = data.nombre;
+			finalData[g_data[idx].getOrdenTemporal()]['color'] = data.color;
+			finalData[g_data[idx].getOrdenTemporal()]['tipo'] = data.tipo;
+			finalData[g_data[idx].getOrdenTemporal()]['padre'] = data.padre;
+			finalData[g_data[idx].getOrdenTemporal()]['clase'] = data.clase;
+			finalData[g_data[idx].getOrdenTemporal()]['image'] = data.image;
+			finalData[g_data[idx].getOrdenTemporal()]['url'] = data.url;
+		}
 	})
-
-	$.post('data_update.php', {data : JSON.stringify(finalData)}, function(data, status){
-	});
+	$.post('data_update.php', {data : JSON.stringify(finalData)}, function(data, status){});
 }
 
 $( document ).ready(function() {
