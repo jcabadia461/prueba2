@@ -1,6 +1,6 @@
 <?php
 
-foreach (glob("/var/www/surface/*.png") as $key => $val) {
+foreach (glob("/var/www/surface/iconos/*.*") as $key => $val) {
 	if(is_file($val)){
 		$imagen = new Imagick($val);
 		$wid = $imagen->getImageWidth();

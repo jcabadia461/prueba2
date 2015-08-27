@@ -12,7 +12,7 @@ foreach ($a as $key => $val) {
 	$info = pathinfo($imagen);
     
 	//$res = grab_image($imagen, $val->id);
-	if(eregi('http:', $imagen)) {
+	if(eregi('http', $imagen)) {
 		if($imagen) {
 echo "<p>entrando : $imagen</p>";
 			if(UR_exists($imagen)){
