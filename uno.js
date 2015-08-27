@@ -314,6 +314,7 @@ inicio = function(){
 		$("#"+this.p_contenedor).append(html);
 
 		this.setTemporal("t_"+this.getId());
+
 	}
 
 	this.chgPadre = function(idPadre){
@@ -369,6 +370,8 @@ inicio = function(){
 		if(tipo == '4'){
 			this.setImage('folder-icon.png');
 			this.setColor('rgba(255,255,255,.1)');
+		}
+		if(tipo != 2){
 			this.p_obj.html("<div class='texto'><p>"+this.getNombre()+"</p></div>");
 		}
 	}
