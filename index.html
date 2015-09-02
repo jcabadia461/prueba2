@@ -43,11 +43,17 @@
 			width: 100%;
 			text-align: center;
 			color: white;
-			margin-top: 97%;
+			margin-top: 95%;
 			z-index: 1000;
 			font-size: 0.8em;
 			font-family: monospace;
 			opacity: .7;
+			overflow: hidden;
+    		max-height: 12px;
+		}
+		.texto p {
+			margin: auto;
+			letter-spacing: -0.5px;
 		}
 		.temporal {
 			position: relative;
@@ -60,16 +66,21 @@
 		.directorio {
 			margin: 0px 0px 0px 0px !important;
 		}
-		.doDelete {
-			width: 48px;
-			margin-top: 0px;
-		}
+		.doDelete { width: 48px; margin-top: 0px; }
+
+		.simple img { margin-left: 78%; margin-top: 4%; }
+
+		.simpleBorrar {display: none;}
 
 		input {margin-top: 5px;}
 
 		.editMe {
 			border: solid thin black;
 			border-style: dashed;
+		}
+
+		.trashMe {
+			border-image: url("icons/equis20.png");
 		}
 
 		@media screen and (min-width: 1px) and (max-width: 600px) {

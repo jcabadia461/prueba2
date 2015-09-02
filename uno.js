@@ -3,6 +3,7 @@ var g_orden = new Object();
 var g_idSrc, g_idTar;
 var g_reordenar = false;
 var g_movil;
+var g_tiembla;
 
 $( window ).resize(function() {
 	g_reordenar = true;
@@ -163,6 +164,7 @@ showData = function(){
 						case 'o_ax_trash' :
 							break;
 						case 'o_ax_edit' :
+							g_tiembla = false;
 							$(".simple").removeClass("editMe");	
 							break;
 						default :
@@ -178,13 +180,19 @@ showData = function(){
 				} else {
 					switch(this.id){
 						case 'o_ax_trash' :
+							g_tiembla = true;
+							$(".simpleBorrar").css("display", "block");
+							tiemblaMas();
 							break;
 						case 'o_ax_edit' :
 							if($(".simple").hasClass("editMe")){
+								g_tiembla = false;
 								$(".simple").removeClass("editMe");	
 							} else {
+								g_tiembla = true;
 								$(".simple").addClass("editMe");
 							}
+							tiemblaMas();
 							break;
 						default :
 							objId = $this.attr('idElem');
@@ -300,6 +308,8 @@ inicio = function(){
 		$("#"+this.p_contenedor).append(html);
 		this.p_obj = $("#o_"+this.getId());
 
+$(this.p_obj).append('<a href="http://google.es" class="simpleBorrar"><img src="icons/equis20.png"/></a>');
+
 		if(this.p_data.image != ""){
 			this.setImage(this.p_data.image);
 		}
@@ -372,7 +382,7 @@ inicio = function(){
 			this.setColor('rgba(255,255,255,.1)');
 		}
 		if(tipo != 2){
-			this.p_obj.html("<div class='texto'><p>"+this.getNombre()+"</p></div>");
+			this.p_obj.append("<div class='texto'><p>"+this.getNombre()+"</p></div>");
 		}
 	}
 
@@ -426,3 +436,23 @@ exporta = function(){
 $( document ).ready(function() {
 	inicio();
 });
+
+
+tiembla = function(num){
+    $(".simple").css('transform', 'rotate('+num+'deg)');
+}
+tiemblaMas = function() {
+	tiembla(0);
+	if(g_tiembla) {
+		tiembla(1);
+		setTimeout(function(){tiemblaMenos()}, 100);
+	}
+}
+tiemblaMenos = function(){
+	tiembla(0);
+	if(g_tiembla) {
+		tiembla(-1);
+		setTimeout(function(){tiemblaMas()}, 100);
+	}
+}
+
