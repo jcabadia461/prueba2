@@ -5,11 +5,13 @@
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="/surface/uno.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<script type="text/javascript">
-		$( document ).ready(function() {});
+		var g_dir='<?php echo isset($_GET["dir"])?$_GET["dir"]:"" ?>';
+		$( document ).ready(function() {
+		});
 	</script>
+	<script type="text/javascript" src="/surface/uno.js"></script>
 
 	<style type="text/css">
 		body {

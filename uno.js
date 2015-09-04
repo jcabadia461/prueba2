@@ -4,6 +4,7 @@ var g_idSrc, g_idTar;
 var g_reordenar = false;
 var g_movil;
 var g_tiembla;
+//var g_dir='ax_55'; 
 
 $( window ).resize(function() {
 	g_reordenar = true;
@@ -259,7 +260,7 @@ inicio = function(){
 	if($.browser.device = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))){
     	g_movil = true;
 	}	
-	$.getJSON('/surface/data.php', function (response) {
+	$.getJSON('/surface/data.php?dir='+g_dir, function (response) {
 		i = 0;
 		$.each(response, function(idx, rec){
 			// luego creamos el enlace
@@ -426,7 +427,13 @@ inicio = function(){
 		this.p_obj.css("background-image", "url('"+name+"')");
 	}
 	this.getUrl = function() {
-		return this.p_data.url;
+		var url = '';
+		console.log(this.p_data);
+		if(this.p_data.tipo == '4'){
+			url = "/surface?dir="+this.getId();
+		} else
+			url = this.p_data.url;
+		return url;
 	}
 	this.setUrl = function(url){
 		this.p_data.url = url;
@@ -449,7 +456,7 @@ exporta = function(){
 			finalData[g_data[idx].getOrdenTemporal()]['url'] = data.url;
 		}
 	})
-	$.post('data_update.php', {data : JSON.stringify(finalData)}, function(data, status){});
+	$.post('data_update.php?dir='+g_dir, {data : JSON.stringify(finalData)}, function(data, status){});
 }
 
 $( document ).ready(function() {
