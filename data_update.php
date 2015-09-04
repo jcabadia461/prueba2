@@ -85,28 +85,35 @@ $data[] = array('id' => 'ax_66', 'nombre' => 'cuatro','color' => '#A9F5D0', 'tip
 $data[] = array('id' => 'ax_67', 'nombre' => 'cuatro','color' => '#A9F5D0', 'tipo' => '2', 'padre' => '0', 'clase' => 'simple', 'image' => '', 'url' => '');
 $data[] = array('id' => 'ax_trash', 'nombre' => 'cuatro','color' => 'rgba(225, 225, 225, .2)', 'tipo' => '9', 'padre' => '0', 'clase' => 'simple', 'image' => './trash_full.png', 'url' => '');
 
-if(isset($_POST['data']) && $_POST['data']){
-	$data = $_POST['data'];
-	$data = json_decode($data);
-	$arr = array();
-	foreach($data as $val){
-		$arr[] = array(
-			'id' 		=> $val->id,
-			'nombre'	=> $val->nombre,
-			'color'		=> $val->color,
-			'tipo'		=> $val->tipo,
-			'padre'		=> $val->padre,
-			'clase'		=> $val->clase,
-			'image'		=> $val->image,
-			'url'		=> $val->url
-			);
-	}
-} else {
-	$arr = $data;
-}
 
-$fp = fopen('data.ser', 'w');
-fwrite($fp, json_encode($arr));
-fclose($fp);
+
+
+
+	if(isset($_POST['data']) && $_POST['data']){
+		$data = $_POST['data'];
+		$data = json_decode($data);
+		$arr = array();
+		foreach($data as $val){
+			$arr[] = array(
+				'id' 		=> $val->id,
+				'nombre'	=> $val->nombre,
+				'color'		=> $val->color,
+				'tipo'		=> $val->tipo,
+				'padre'		=> $val->padre,
+				'clase'		=> $val->clase,
+				'image'		=> $val->image,
+				'url'		=> $val->url
+				);
+		}
+
+		while(count($arr) < 100) {
+			$arr[] = array('id' => 'new_'.count($arr), 'nombre' => 'nuevo','color' => '#81DAF5', 'tipo' => '2', 'padre' => '0', 'clase' => 'simple', 'image' => '', 'url' => '');
+		}
+    
+		$fp = fopen('data.ser', 'w');
+		fwrite($fp, json_encode($arr));
+		fclose($fp);
+	}
+
 
 ?>

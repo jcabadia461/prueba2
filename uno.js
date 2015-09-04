@@ -165,7 +165,7 @@ showData = function(){
 							break;
 						case 'o_ax_edit' :
 							g_tiembla = false;
-							$(".simple").removeClass("editMe");	
+							$(".normalIcon").removeClass("editMe");	
 							break;
 						default :
 							idElem = $(this).attr('id'); 
@@ -180,25 +180,26 @@ showData = function(){
 				} else {
 					switch(this.id){
 						case 'o_ax_trash' :
-							g_tiembla = true;
-							$(".simpleBorrar").css("display", "block");
-							tiemblaMas();
+							if(g_tiembla)
+								stopTiembla();
+							else
+								startTiembla();
 							break;
 						case 'o_ax_edit' :
-							if($(".simple").hasClass("editMe")){
-								g_tiembla = false;
-								$(".simple").removeClass("editMe");	
-							} else {
-								g_tiembla = true;
-								$(".simple").addClass("editMe");
-							}
-							tiemblaMas();
+							if(g_tiembla)
+								stopTiembla();
+							if($(".normalIcon").hasClass("editMe"))
+								$(".normalIcon").removeClass("editMe");	
+							else
+								$(".normalIcon").addClass("editMe");
 							break;
 						default :
-							objId = $this.attr('idElem');
-							url = g_data[objId].getUrl();
-							if(url){
-								window.open(url, '_blank');
+							if(!g_tiembla){
+								objId = $this.attr('idElem');
+								url = g_data[objId].getUrl();
+								if(url){
+									window.open(url, '_blank');
+								}
 							}
 					}
 				}
@@ -206,6 +207,7 @@ showData = function(){
 			});
 		});
 }
+
 
 dropExec = function(idSrc, idTar, idIdTar) {
 	if(idSrc == g_idSrc && idTar == g_idTar){
@@ -304,11 +306,13 @@ inicio = function(){
  	}
  	this.getHtml = function(){
 		// creamos el botón
-		html = '<div id="o_'+this.getId()+'" idElem="'+this.getId()+'" class="'+this.p_data.clase+'" style=""></div>';
+		html = '<div id="o_'+this.getId()+'" idElem="'+this.getId()+'" class="'+this.getClass()+'" style=""></div>';
 		$("#"+this.p_contenedor).append(html);
 		this.p_obj = $("#o_"+this.getId());
 
-$(this.p_obj).append('<a href="http://google.es" class="simpleBorrar"><img src="icons/equis20.png"/></a>');
+		if(this.getId() != 'ax_trash' && this.getId() != 'ax_edit') {
+			$(this.p_obj).append('<a href="javascript:void(0)" onclick="trashIcon(\''+this.getId()+'\');" class="simpleBorrar"><img src="icons/equis20.png"/></a>');
+		}
 
 		if(this.p_data.image != ""){
 			this.setImage(this.p_data.image);
@@ -372,6 +376,21 @@ $(this.p_obj).append('<a href="http://google.es" class="simpleBorrar"><img src="
 		this.p_data.clase = clase;
 		this.p_obj.addClass(clase);
 	}
+
+
+	this.getClass = function(){
+		var clase = this.p_data.clase;
+		switch(this.getId()){
+			case 'ax_trash' :
+			case 'ax_edit' :
+				break;
+			default :
+				clase = clase + " normalIcon";
+		}
+		return clase;
+	}
+
+
 	this.getTipo = function(){
 		return this.p_data.tipo;
 	}
@@ -438,8 +457,14 @@ $( document ).ready(function() {
 });
 
 
+
+trashIcon = function(id){
+	if(confirm("Borrar : " + g_data[id].p_data.nombre)){
+		console.log("borrar : " + id);
+	}
+}
 tiembla = function(num){
-    $(".simple").css('transform', 'rotate('+num+'deg)');
+    $(".normalIcon").css('transform', 'rotate('+num+'deg)');
 }
 tiemblaMas = function() {
 	tiembla(0);
@@ -455,4 +480,15 @@ tiemblaMenos = function(){
 		setTimeout(function(){tiemblaMas()}, 100);
 	}
 }
-
+stopTiembla = function() {
+	g_tiembla = false;
+	$(".simpleBorrar").css("display", "none");
+	$(".texto").show();
+	tiemblaMas();
+}
+startTiembla = function(){
+	g_tiembla = true;
+	$(".simpleBorrar").css("display", "block");	
+	$(".texto").hide();
+	tiemblaMas();
+}
