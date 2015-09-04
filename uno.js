@@ -137,11 +137,11 @@ showData = function(){
 				var f_url = $("#f_url").val();
 				dialog.dialog( "close" );
 
+				g_data[idIdElem].setTipo(f_tipo);
 				g_data[idIdElem].setNombre(f_nombre);
 				g_data[idIdElem].setColor(f_color);
 				g_data[idIdElem].setImage(f_image);
 				g_data[idIdElem].setUrl(f_url);
-				g_data[idIdElem].setTipo(f_tipo);
 				exporta();
 			}
 
@@ -321,6 +321,7 @@ inicio = function(){
 
 		this.setColor(this.p_data.color);
 		this.setTipo(this.p_data.tipo);
+		this.setNombre(this.p_data.nombre);
 		this.p_obj.draggable();
 		/* if(this.p_data.tipo == '2'){this.p_obj.addClass("insertable");} */
 
@@ -388,6 +389,8 @@ inicio = function(){
 			default :
 				clase = clase + " normalIcon";
 		}
+		if(this.getTipo() == '4')
+			clase = clase + " folderIcon";	
 		return clase;
 	}
 
@@ -401,9 +404,6 @@ inicio = function(){
 			this.setImage('folder-icon.png');
 			this.setColor('rgba(255,255,255,.1)');
 		}
-		if(tipo != 2){
-			this.p_obj.append("<div class='texto'><p>"+this.getNombre()+"</p></div>");
-		}
 	}
 
 	this.getNombre = function(){
@@ -411,6 +411,16 @@ inicio = function(){
 	}
 	this.setNombre = function(nombre){
 		this.p_data.nombre = nombre;
+		if(this.getTipo() != 2){
+			tmp = $("#"+this.p_obj.attr("id") + " .texto");
+			if(tmp.length)
+				$("#"+this.p_obj.attr("id") + " .texto").html(nombre);
+			else 
+				this.p_obj.append("<div class='texto'><p>"+nombre+"</p></div>");
+
+		} else {
+			$("#"+this.p_obj.attr("id") + " .texto").html("");
+		}
 	}
 	this.getColor = function() {
 		return this.p_data.color;
@@ -428,7 +438,6 @@ inicio = function(){
 	}
 	this.getUrl = function() {
 		var url = '';
-		console.log(this.p_data);
 		if(this.p_data.tipo == '4'){
 			url = "/surface?dir="+this.getId();
 		} else
