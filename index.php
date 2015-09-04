@@ -53,6 +53,17 @@
 			overflow: hidden;
     		max-height: 12px;
 		}
+
+		.folderIcon .texto {
+			margin-top: 40%;
+			font-size: 0.9em;
+			opacity: 1;
+			overflow: visible;
+			height: 100%;
+			color: blue;
+			font-family: serif;
+		}
+
 		.texto p {
 			margin: auto;
 			letter-spacing: -0.5px;
