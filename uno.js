@@ -335,8 +335,8 @@ inicio = function(){
 
 	this.chgPadre = function(idPadre){
 		console.log("El padre es : " + idPadre);
-		this.p_obj.hide();
-		this.p_objTmp.hide();
+		//this.p_obj.hide();
+		//this.p_objTmp.hide();
 	}
 	this.setTemporal = function(id){
 		this.p_objTmp = $("#"+id);
