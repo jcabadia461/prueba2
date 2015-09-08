@@ -52,6 +52,7 @@
 			overflow: hidden;
 			text-align: center;
 		}
+
 		.textoStr {	display: table-cell; vertical-align: middle; font-size: 1em; opacity: 1;}
 
 		.conImage .texto .textoStr {display: block; margin-top: 96%; max-height: 12px; font-size: 0.8em; }
