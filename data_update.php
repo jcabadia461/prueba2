@@ -27,7 +27,7 @@ if(isset($_POST['data']) && $_POST['data']){
 	}
 
 	while(count($arr) < 100) {
-		$arr[] = array('id' => 'new_'.rand().'_'.count($arr), 'nombre' => 'nuevo','color' => '#81DAF5', 'tipo' => '2', 'padre' => '0', 'clase' => 'simple', 'image' => '', 'url' => '');
+		$arr[] = array('id' => 'new_'.rand().'_'.count($arr), 'nombre' => 'nuevo','color' => 'rgba(255,255,255,.1)', 'tipo' => '2', 'padre' => '0', 'clase' => 'simple', 'image' => '', 'url' => '');
 	}
 
 	$fp = fopen($fichero, 'w');

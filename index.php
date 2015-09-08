@@ -42,27 +42,21 @@
 			background-position: center; 
 		}
 		.texto {
+			display: table;
 			width: 100%;
-			text-align: center;
+			height: 100%;
 			color: white;
-			margin-top: 95%;
-			z-index: 1000;
-			font-size: 0.8em;
+			z-index: -1000;
 			font-family: monospace;
 			opacity: .7;
 			overflow: hidden;
-    		max-height: 12px;
+			text-align: center;
 		}
+		.textoStr {	display: table-cell; vertical-align: middle; font-size: 1em; opacity: 1;}
 
-		.folderIcon .texto {
-			margin-top: 40%;
-			font-size: 0.9em;
-			opacity: 1;
-			overflow: visible;
-			height: 100%;
-			color: blue;
-			font-family: serif;
-		}
+		.conImage .texto .textoStr {display: block; margin-top: 96%; max-height: 12px; font-size: 0.8em; }
+
+		.folderIcon .texto .textoStr {color: blue; font-family: serif; font-size: 1em; opacity: 1}
 
 		.texto p {
 			margin: auto;
@@ -83,7 +77,7 @@
 
 		.simple img { margin-left: 78%; margin-top: 4%; }
 
-		.simpleBorrar {display: none;}
+		.simpleBorrar {display: none; }
 
 		input {margin-top: 5px;}
 
@@ -101,12 +95,15 @@
 	    	.ui-draggable-dragging {height: 3.5em !important; width: 3.5em !important;}
 		    .simple {height: 4em; width: 4em;}
 		    .temporal {height: 4em; width: 4em;}
+		    .textoStr {font-size: 0.7em;}
+			.folderIcon .texto .textoStr {font-size: 0.7em;}
 	    }
 		@media screen and (min-width: 601px) and (max-width: 900px) {
 			.directorio {width: 8em !important; height: 8em !important; background-color: black !important;}
 	    	.ui-draggable-dragging {height: 5em !important; width: 5em !important;}
 		    .simple {height: 6em; width: 6em;}
 		    .temporal {height: 6em; width: 6em;}
+		    .textoStr {font-size: 0.8em;}
 	    }
 		@media screen and (min-width: 901px) and (max-width: 6000px) {
 			.directorio {width: 9em !important; height: 9em !important; background-color: black !important;}
@@ -132,7 +129,7 @@
 				<input type="text" name="f_tipo" id="f_tipo" value="1" maxlength="1" size="1" class="text ui-widget-content ui-corner-all">
 				<br/>
 				<label for="f_nombre">nombre</label>
-				<input type="text" name="f_nombre" id="f_nombre" value="" maxlength="24" size="24" class="text ui-widget-content ui-corner-all">
+				<input type="text" name="f_nombre" id="f_nombre" value="" maxlength="240" size="24" class="text ui-widget-content ui-corner-all">
 				<br/>
 				<label for="f_color">color</label>
 				<input type="text" name="f_color" id="f_color" value="rgba(225, 225, 225, .2)" maxlength="24" size="24" class="text ui-widget-content ui-corner-all">

@@ -75,7 +75,11 @@ showData = function(){
 	    // tolerance can be set to 'fit', 'intersect', 'pointer', or 'touch'
 	    tolerance: 'intersect',
 	    over: function(event, ui) {
-	    	idSrc = $(event.srcElement).attr('idElem');
+			if($(event.srcElement).hasClass('textoStr')){
+			   	idSrc = $(event.srcElement).parent().parent().attr('idElem');
+			} else {
+			   	idSrc = $(event.srcElement).parent().attr('idElem');
+			}
 	    	idTar = $(this).attr('idElem');
 	    	if(idSrc != idTar) {
 	    		if(idSrc != g_idSrc || idTar != g_idTar) {
@@ -211,6 +215,10 @@ showData = function(){
 
 
 dropExec = function(idSrc, idTar, idIdTar) {
+console.log('***********************************************');
+console.log(idSrc);
+console.log(idTar);
+console.log(idIdTar);
 	if(idSrc == g_idSrc && idTar == g_idTar){
 		g_idSrc = 0;
 		g_idTar = 0;
@@ -315,6 +323,8 @@ inicio = function(){
 			$(this.p_obj).append('<a href="javascript:void(0)" onclick="trashIcon(\''+this.getId()+'\');" class="simpleBorrar"><img src="icons/equis20.png"/></a>');
 		}
 
+		$(this.p_obj).append("<div class='texto'><div class='textoStr'></div></div>");
+
 		if(this.p_data.image != ""){
 			this.setImage(this.p_data.image);
 		}
@@ -412,14 +422,15 @@ inicio = function(){
 	this.setNombre = function(nombre){
 		this.p_data.nombre = nombre;
 		if(this.getTipo() != 2){
-			tmp = $("#"+this.p_obj.attr("id") + " .texto");
-			if(tmp.length)
-				$("#"+this.p_obj.attr("id") + " .texto").html(nombre);
-			else 
-				this.p_obj.append("<div class='texto'><p>"+nombre+"</p></div>");
-
+			this.p_obj.find(".textoStr").html(nombre);
+			//si tiene imágen, ponemos el texto debajo de la imágen
+			if(this.getTipo() != 4 && this.getImage() != ""){
+				this.p_obj.addClass('conImage');
+			} else {
+				this.p_obj.removeClass('conImage');
+			}
 		} else {
-			$("#"+this.p_obj.attr("id") + " .texto").html("");
+			//this.p_obj.find(".textoStr").html(nombre);
 		}
 	}
 	this.getColor = function() {
